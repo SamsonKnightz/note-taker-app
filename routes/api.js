@@ -19,10 +19,10 @@ router.post('/api/notes', (req, res) => {
     const newNote = {
       title,
       text,
-      tip_id: uuid(),
+      id: uuid(),
     };
 
-    readAndAppend(newNote, './db/feedback.json');
+    readAndAppend(newNote, './db/notes.json');
     res.json(`note added successfully 🚀`);
   } else {
     res.error('Error in adding note');
@@ -32,9 +32,11 @@ router.post('/api/notes', (req, res) => {
 // GET Route for retrieving all the feedback
 router.get('/api/notes', (req, res) => {
   console.info(`${req.method} request received for note`);
-  const data = readFileSync('./db/feedback.json', 'utf8');
+  const data = readFileSync('./db/notes.json', 'utf8');
   res.json(JSON.parse(data));
 });
+
+
 
 // POST Route for submitting feedback
 router.post('/api/notes', (req, res) => {
