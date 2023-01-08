@@ -4,14 +4,12 @@ const { readFileSync, readAndAppend } = require('../helpers/file');
 
 // GET Route for retrieving all the tips
 router.get('/api/notes', (req, res) => {
-  console.info(`${req.method} request received for tips`);
   const data = readFileSync('./db/notes.json', 'utf8');
   res.json(JSON.parse(data));
 });
 
 // POST Route for a new UX/UI note
 router.post('/api/notes', (req, res) => {
-  console.info(`${req.method} request received to add a note`);
 
   const { title, text} = req.body;
 
@@ -31,7 +29,6 @@ router.post('/api/notes', (req, res) => {
 
 // GET Route for retrieving all the feedback
 router.get('/api/notes', (req, res) => {
-  console.info(`${req.method} request received for note`);
   const data = readFileSync('./db/notes.json', 'utf8');
   res.json(JSON.parse(data));
 });
@@ -40,9 +37,7 @@ router.get('/api/notes', (req, res) => {
 
 // POST Route for submitting feedback
 router.post('/api/notes', (req, res) => {
-  // Log that a POST request was received
-  console.info(`${req.method} request received to submit note`);
-
+  
   // Destructuring assignment for the items in req.body
   const { title, text} = req.body;
 
