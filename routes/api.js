@@ -5,24 +5,24 @@ const { readFileSync, readAndAppend } = require('../helpers/file');
 // GET Route for retrieving all the tips
 router.get('/api/notes', (req, res) => {
   console.info(`${req.method} request received for tips`);
-  const data = readFileSync('./db/feedback.json', 'utf8');
+  const data = readFileSync('./db/notes.json', 'utf8');
   res.json(JSON.parse(data));
 });
 
-// POST Route for a new UX/UI tip
+// POST Route for a new UX/UI note
 router.post('/api/notes', (req, res) => {
   console.info(`${req.method} request received to add a note`);
 
   const { title, text} = req.body;
 
   if (req.body) {
-    const newTip = {
+    const newNote = {
       title,
       text,
       tip_id: uuid(),
     };
 
-    readAndAppend(newTip, './db/feedback.json');
+    readAndAppend(newNote, './db/feedback.json');
     res.json(`note added successfully 🚀`);
   } else {
     res.error('Error in adding note');
@@ -47,22 +47,22 @@ router.post('/api/notes', (req, res) => {
   // If all the required properties are present
   if (title && text) {
     // Variable for the object we will save
-    const newFeedback = {
+    const newNote = {
       title,
       text,
       id: uuid(),
     };
 
-    readAndAppend(newFeedback, './db/feedback.json');
+    readAndAppend(newNote, './db/notes.json');
 
     const response = {
       status: 'success',
-      body: newFeedback,
+      body: newNote,
     };
 
     res.json(response);
   } else {
-    res.json('Error in posting feedback');
+    res.json('Error in posting newNote');
   }
 });
 
